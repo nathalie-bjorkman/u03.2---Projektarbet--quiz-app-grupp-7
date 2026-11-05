@@ -1,0 +1,306 @@
+/* Quiz Tajm: Frame 3 (Avslutat quiz) och Frame 4 (Resultat)
+   Bygger på variabler från base.css. Fungerar med html {font-size:62.5%}.
+   Måtten nedan anges i px för att följa Figma-designsystemet. */
+
+/* Bakgrund och dekorationer */
+html { min-height: 100%; }
+body.result-shell {
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+  font-family: var(--font-body, "DM Sans", sans-serif);
+  color: var(--color-text, #241432);
+  background:
+    radial-gradient(circle at 95% 5%, rgb(252 211 77 / 16%), transparent 256px),
+    linear-gradient(145deg, #f7f2ff, #fff8fb);
+  background-attachment: fixed;
+}
+body.result-shell::before,
+body.result-shell::after {
+  content: "";
+  position: fixed;
+  width: 160px;
+  height: 160px;
+  border: 25px solid #efd2df;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+}
+body.result-shell::before { top: 120px; left: -120px; }
+body.result-shell::after { bottom: 50px; right: -120px; }
+
+/* Gemensam header och knappar */
+.result-header {
+  position: relative;
+  z-index: 1;
+  width: calc(100% - 40px);
+  max-width: 760px;
+  height: 78px;
+  margin-inline: auto;
+  display: flex;
+  align-items: center;
+}
+.result-logo { display: inline-flex; align-items: center; }
+.result-logo img { display: block; height: 30px; width: auto; }
+.result-shell main { position: relative; z-index: 1; }
+.result-shell .result-eyebrow {
+  font-family: var(--font-body, "DM Sans", sans-serif);
+  color: #c81e67;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: .11em;
+  text-transform: uppercase;
+}
+.result-shell .result-primary-button {
+  display: flex;
+  width: 100%;
+  min-height: 54px;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 24px;
+  border: 0;
+  border-radius: 12px;
+  background: var(--color-primary, #5620a8);
+  color: #fff;
+  font-family: var(--font-body, "DM Sans", sans-serif);
+  font-size: 16px;
+  font-weight: 700;
+  text-decoration: none;
+  text-align: center;
+  box-shadow: 0 7px 0 #37106f, 0 13px 28px rgb(86 32 168 / 24%);
+  cursor: pointer;
+  transition: transform .15s, box-shadow .15s;
+}
+.result-primary-button:hover { transform: translateY(2px); box-shadow: 0 5px 0 #37106f, 0 10px 22px rgb(86 32 168 / 20%); }
+.result-primary-button:active { transform: translateY(7px); box-shadow: none; }
+.result-shell a:focus-visible,
+.result-shell summary:focus-visible { outline: 3px solid #0b63ce; outline-offset: 4px; }
+.result-shell [hidden] { display: none !important; }
+
+/* FRAME 3: Avslutat quiz */
+.finished-page {
+  position: relative;
+  min-height: calc(100svh - 78px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 24px 20px 64px;
+}
+.finished-card {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 610px;
+  padding: 34px 22px 38px;
+  border: 1px solid rgb(86 32 168 / 12%);
+  border-radius: 32px;
+  background: rgb(255 252 248 / 94%);
+  box-shadow: 9px 10px 0 #fcd34d, 0 22px 60px rgb(52 23 74 / 16%);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.finished-icon {
+  width: 58px;
+  height: 58px;
+  display: grid;
+  place-items: center;
+  margin-bottom: 18px;
+  border-radius: 20px;
+  color: #c81e67;
+  background: #ffe2ef;
+  transform: rotate(-4deg);
+}
+.finished-icon svg { transform: rotate(4deg); }
+.finished-card .result-eyebrow { margin-bottom: 8px; }
+.finished-card h1 {
+  margin: 0;
+  padding: 0;
+  color: #241432;
+  font-family: var(--font-family, "Fredoka", sans-serif);
+  font-size: 40px;
+  font-weight: 700;
+  letter-spacing: -.035em;
+  line-height: 1.05;
+}
+.score-display {
+  display: flex;
+  gap: 9px;
+  align-items: baseline;
+  justify-content: center;
+  margin: 22px 0 18px;
+}
+.score-number {
+  font-family: var(--font-family, "Fredoka", sans-serif);
+  font-size: 72px;
+  font-weight: 700;
+  letter-spacing: -.035em;
+  line-height: .9;
+  color: var(--color-primary, #5620a8);
+}
+.score-total {
+  font-family: var(--font-body, "DM Sans", sans-serif);
+  font-size: 21px;
+  font-weight: 700;
+  color: #241432;
+}
+.finished-description {
+  max-width: 430px;
+  margin: 0 0 27px;
+  color: #655a70;
+  font-family: var(--font-body, "DM Sans", sans-serif);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+}
+.finished-card .result-primary-button { max-width: 300px; }
+.confetti { position: absolute; width: 15px; height: 32px; border-radius: 999px; pointer-events: none; }
+.confetti-pink { top: 13%; left: max(6%, calc(50% - 340px)); background: #c81e67; transform: rotate(-29deg); }
+.confetti-purple { bottom: 14%; right: max(6%, calc(50% - 335px)); background: #6d28d9; transform: rotate(-51deg); }
+.confetti-yellow { bottom: 10%; left: max(12%, calc(50% - 310px)); background: #fcd34d; transform: rotate(44deg); }
+
+/* FRAME 4: Ditt resultat */
+.results-page {
+  width: calc(100% - 40px);
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 26px 0 calc(64px + env(safe-area-inset-bottom));
+}
+.results-intro { margin-bottom: 24px; }
+.results-intro h1 {
+  margin: 9px 0 10px;
+  padding: 0;
+  font-family: var(--font-family, "Fredoka", sans-serif);
+  font-size: 40px;
+  font-weight: 700;
+  letter-spacing: -.035em;
+  line-height: 1.05;
+  color: #241432;
+}
+.results-description { color: #655a70; font: 400 16px/1.5 var(--font-body, "DM Sans", sans-serif); }
+
+/* Historikkort */
+.history-card {
+  width: 100%;
+  padding: 20px;
+  margin-bottom: 18px;
+  border: 1px solid rgb(86 32 168 / 14%);
+  border-radius: 20px;
+  background: #fffcf8;
+  box-shadow: 0 14px 40px rgb(52 23 74 / 12%);
+}
+.history-header { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; margin-bottom: 14px; }
+.history-header h2 {
+  max-width: 210px;
+  color: #241432;
+  font: 700 21px/1.15 var(--font-family, "Fredoka", sans-serif);
+  letter-spacing: -.025em;
+}
+.history-header p { max-width: 135px; text-align: right; color: #655a70; font: 400 10px/1.3 var(--font-body, "DM Sans", sans-serif); }
+.history-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 7px; }
+.history-item {
+  min-height: 42px;
+  padding: 8px 11px;
+  display: grid;
+  grid-template-columns: 1fr auto 58px;
+  align-items: center;
+  gap: 12px;
+  border-radius: 11px;
+  background: #f7f3fa;
+  color: #655a70;
+  font: 400 13px/1.3 var(--font-body, "DM Sans", sans-serif);
+}
+.history-item strong { color: #241432; font-weight: 700; }
+.history-item > :last-child { text-align: right; }
+
+/* Frågerader med öppningsbara svar */
+.question-results { display: flex; flex-direction: column; gap: 12px; }
+.result-item {
+  width: 100%;
+  min-height: 80px;
+  overflow: hidden;
+  border: 1px solid #8f8099;
+  border-left: 5px solid #5c5363;
+  border-radius: 20px;
+  background: #fffcf8;
+}
+.result-item.is-correct { border-left-color: #176b4a; }
+.result-item.is-incorrect { border-left-color: #a62a2a; }
+.result-item summary {
+  min-height: 79px;
+  display: grid;
+  grid-template-columns: 30px minmax(0, 1fr) 22px;
+  gap: 11px;
+  align-items: center;
+  padding: 13px 14px;
+  list-style: none;
+  cursor: pointer;
+}
+.result-item summary::-webkit-details-marker { display: none; }
+.status-icon {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 10px;
+  font: 700 20px/1 var(--font-body, "DM Sans", sans-serif);
+  color: #5c5363;
+  background: #eeEaf1;
+}
+.is-correct .status-icon { color: #176b4a; background: #ddf5ea; }
+.is-incorrect .status-icon { color: #a62a2a; background: #fde7e7; }
+.question-copy { display: flex; min-width: 0; flex-direction: column; gap: 3px; }
+.question-meta {
+  color: #655a70;
+  font: 700 12px/1.25 var(--font-body, "DM Sans", sans-serif);
+  letter-spacing: .035em;
+  text-transform: uppercase;
+}
+.question-text { color: #241432; font: 700 15px/1.25 var(--font-body, "DM Sans", sans-serif); }
+.question-chevron { width: 22px; height: 22px; fill: none; stroke: #655a70; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; transition: transform 180ms; }
+.result-item[open] .question-chevron { transform: rotate(180deg); }
+.answer-panel { padding: 5px 16px 20px; border-top: 1px solid #d8cce4; }
+.answer-grid { display: grid; gap: 10px; }
+.answer-box { padding: 13px; border-radius: 14px; background: #f7f3fa; font: 600 14px/1.5 var(--font-body, "DM Sans", sans-serif); }
+.answer-label { margin-bottom: 8px; font-size: 12px; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; color: #655a70; }
+.answer-explanation { margin-top: 12px; padding: 15px; border-radius: 16px; background: #ede4ff; color: #241432; font: 400 14px/1.5 var(--font-body, "DM Sans", sans-serif); }
+
+/* CTA längst ner */
+.result-actions { display: flex; flex-direction: column; gap: 12px; margin-top: 28px; }
+.result-secondary-button {
+  display: grid;
+  place-items: center;
+  min-height: 48px;
+  padding: 12px 20px;
+  text-decoration: none;
+  color: #5620a8;
+  font: 700 16px/1.2 var(--font-body, "DM Sans", sans-serif);
+}
+
+/* Breakpoints från Figma-specifikationen */
+@media (min-width: 600px) {
+  .result-header { width: calc(100% - 64px); }
+  .results-page { width: calc(100% - 64px); padding-top: 38px; }
+  .finished-card { padding: 46px 42px 48px; }
+  .finished-card h1, .results-intro h1 { font-size: 52px; }
+  .finished-page { min-height: calc(100svh - 88px); }
+  .result-header { height: 88px; }
+  .answer-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .answer-panel { padding: 8px 24px 24px 73px; }
+  .result-item { min-height: 84px; }
+  .result-item summary { min-height: 83px; padding: 15px 20px; }
+  .question-text { font-size: 16px; }
+  .result-actions { flex-direction: row; }
+  .result-actions .result-primary-button,
+  .result-actions .result-secondary-button { flex: 1; }
+}
+@media (min-width: 900px) {
+  .result-header, .results-page { width: calc(100% - 96px); }
+  .results-intro { margin-bottom: 30px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .result-primary-button, .question-chevron { transition: none; }
+}

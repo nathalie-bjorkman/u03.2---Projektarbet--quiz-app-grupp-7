@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="sv">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quiz avslutat | Quiz Tajm</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fredoka:wght@500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../css/base.css" />
+    <link rel="stylesheet" href="../css/results.css" />
+  </head>
+
+  <body class="result-shell">
+    <header class="result-header">
+      <a
+        class="result-logo"
+        href="./index.html"
+        aria-label="Quiz Tajm, till startsidan"
+      >
+        <img src="../img/logo.svg" alt="Quiz Tajm" />
+      </a>
+    </header>
+
+    <main>
+      <!-- Frame 3: Avslutat quiz -->
+      <section
+        class="finished-page"
+        id="finished"
+        aria-labelledby="finished-title"
+      >
+        <div class="confetti confetti-pink" aria-hidden="true"></div>
+        <div class="confetti confetti-purple" aria-hidden="true"></div>
+        <div class="confetti confetti-yellow" aria-hidden="true"></div>
+
+        <div class="finished-card">
+          <div class="finished-icon" aria-hidden="true">
+            <svg
+              viewBox="0 0 32 32"
+              width="30"
+              height="30"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.7"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path
+                d="M13.5 3.5c.8 6 3.8 9.1 9.2 10.1-5.4 1.2-8.5 4.2-9.2 10.3-.9-6.1-4-9.1-9.5-10.3 5.5-1 8.6-4.1 9.5-10.1Z"
+              />
+              <path d="M25.3 21v7m-3.5-3.5h7" />
+            </svg>
+          </div>
+
+          <p class="result-eyebrow">Quizet är avslutat</p>
+          <h1 id="finished-title">Bra jobbat!</h1>
+
+          <div class="score-display" aria-label="4 av 10 rätt">
+            <span class="score-number" id="final-score">4</span>
+            <span class="score-total">av 10 rätt</span>
+          </div>
+
+          <p class="finished-description">
+            Klart på <span id="final-time">0:31</span>. Se svaren och vad du kan
+            ta med dig till nästa omgång.
+          </p>
+
+          <a class="result-primary-button" href="#results">
+            <span>Se resultat</span>
+            <svg
+              viewBox="0 0 24 24"
+              width="22"
+              height="22"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M4 12h15m-6-6 6 6-6 6" />
+            </svg>
+          </a>
+        </div>
+      </section>
+
+      <!-- Frame 4: Ditt resultat -->
+      <section
+        class="results-page"
+        id="results"
+        aria-labelledby="results-title"
+        hidden
+      >
+        <div class="results-intro">
+          <p class="result-eyebrow">Quizet är klart</p>
+          <h1 id="results-title">Ditt resultat</h1>
+          <p class="results-description">
+            <span id="result-score">4</span> av 10 rätt på
+            <span id="result-time">0:31</span>.
+          </p>
+        </div>
+
+        <section class="history-card" aria-labelledby="history-title">
+          <div class="history-header">
+            <h2 id="history-title">Dina senaste resultat</h2>
+            <p>Exempeldata</p>
+          </div>
+          <ul class="history-list" id="history-list">
+            <li class="history-item">
+              <time datetime="2026-11-05">5 nov.</time>
+              <strong>4 av 10</strong>
+              <span>0:31</span>
+            </li>
+          </ul>
+        </section>
+
+        <section
+          class="question-results"
+          aria-label="Genomgång av quizfrågorna"
+        >
+          <!-- Frågorna är exempel tills ni kopplar på quizets sparade svar. -->
+          <details class="result-item is-incorrect">
+            <summary>
+              <span class="status-icon" aria-hidden="true">✕</span>
+              <span class="question-copy"
+                ><span class="question-meta">Fråga 1 · Fel</span
+                ><span class="question-text"
+                  >Vem skrev tragedin Hamlet?</span
+                ></span
+              >
+              <svg
+                class="question-chevron"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+              >
+                <path d="m5 9 7 7 7-7" />
+              </svg>
+            </summary>
+            <div class="answer-panel">
+              <div class="answer-grid">
+                <div class="answer-box">
+                  <p class="answer-label">Ditt svar</p>
+                  <p>Charles Dickens</p>
+                </div>
+                <div class="answer-box">
+                  <p class="answer-label">Rätt svar</p>
+                  <p>William Shakespeare</p>
+                </div>
+              </div>
+              <p class="answer-explanation">
+                Shakespeare skrev tragedin Hamlet omkring år 1600.
+              </p>
+            </div>
+          </details>
+
+          <details class="result-item is-correct">
+            <summary>
+              <span class="status-icon" aria-hidden="true">✓</span>
+              <span class="question-copy"
+                ><span class="question-meta">Fråga 2 · Rätt</span
+                ><span class="question-text"
+                  >Vilket land tillhör exklaven Kaliningrad?</span
+                ></span
+              >
+              <svg
+                class="question-chevron"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+              >
+                <path d="m5 9 7 7 7-7" />
+              </svg>
+            </summary>
+            <div class="answer-panel">
+              <div class="answer-grid">
+                <div class="answer-box">
+                  <p class="answer-label">Ditt svar</p>
+                  <p>Ryssland</p>
+                </div>
+                <div class="answer-box">
+                  <p class="answer-label">Rätt svar</p>
+                  <p>Ryssland</p>
+                </div>
+              </div>
+            </div>
+          </details>
+
+          <details class="result-item is-incorrect">
+            <summary>
+              <span class="status-icon" aria-hidden="true">✕</span>
+              <span class="question-copy"
+                ><span class="question-meta">Fråga 3 · Fel</span
+                ><span class="question-text"
+                  >Vem skrev romanen Kejsarn av Portugallien?</span
+                ></span
+              >
+              <svg
+                class="question-chevron"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+              >
+                <path d="m5 9 7 7 7-7" />
+              </svg>
+            </summary>
+            <div class="answer-panel">
+              <div class="answer-grid">
+                <div class="answer-box">
+                  <p class="answer-label">Ditt svar</p>
+                  <p>Astrid Lindgren</p>
+                </div>
+                <div class="answer-box">
+                  <p class="answer-label">Rätt svar</p>
+                  <p>Selma Lagerlöf</p>
+                </div>
+              </div>
+            </div>
+          </details>
+
+          <details class="result-item is-incorrect">
+            <summary>
+              <span class="status-icon" aria-hidden="true">✕</span>
+              <span class="question-copy"
+                ><span class="question-meta">Fråga 4 · Fel</span
+                ><span class="question-text"
+                  >Vilken arkitekturstil förknippas främst med Notre-Dame i
+                  Paris?</span
+                ></span
+              >
+              <svg
+                class="question-chevron"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+              >
+                <path d="m5 9 7 7 7-7" />
+              </svg>
+            </summary>
+            <div class="answer-panel">
+              <div class="answer-grid">
+                <div class="answer-box">
+                  <p class="answer-label">Ditt svar</p>
+                  <p>Barock</p>
+                </div>
+                <div class="answer-box">
+                  <p class="answer-label">Rätt svar</p>
+                  <p>Gotik</p>
+                </div>
+              </div>
+            </div>
+          </details>
+
+          <details class="result-item is-correct">
+            <summary>
+              <span class="status-icon" aria-hidden="true">✓</span>
+              <span class="question-copy"
+                ><span class="question-meta">Fråga 5 · Rätt</span
+                ><span class="question-text"
+                  >Vilken är Sveriges tredje största sjö till ytan?</span
+                ></span
+              >
+              <svg
+                class="question-chevron"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+              >
+                <path d="m5 9 7 7 7-7" />
+              </svg>
+            </summary>
+            <div class="answer-panel">
+              <div class="answer-grid">
+                <div class="answer-box">
+                  <p class="answer-label">Ditt svar</p>
+                  <p>Mälaren</p>
+                </div>
+                <div class="answer-box">
+                  <p class="answer-label">Rätt svar</p>
+                  <p>Mälaren</p>
+                </div>
+              </div>
+            </div>
+          </details>
+
+          <details class="result-item is-incorrect">
+            <summary>
+              <span class="status-icon" aria-hidden="true">✕</span>
+              <span class="question-copy"
+                ><span class="question-meta">Fråga 6 · Fel</span
+                ><span class="question-text"
+                  >Vilken SI-enhet används för elektrisk resistans?</span
+                ></span
+              >
+              <svg
+                class="question-chevron"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+              >
+                <path d="m5 9 7 7 7-7" />
+              </svg>
+            </summary>
+            <div class="answer-panel">
+              <div class="answer-grid">
+                <div class="answer-box">
+                  <p class="answer-label">Ditt svar</p>
+                  <p>Volt</p>
+                </div>
+                <div class="answer-box">
+                  <p class="answer-label">Rätt svar</p>
+                  <p>Ohm</p>
+                </div>
+              </div>
+            </div>
+          </details>
+
+          <details class="result-item is-correct">
+            <summary>
+              <span class="status-icon" aria-hidden="true">✓</span>
+              <span class="question-copy"
+                ><span class="question-meta">Fråga 7 · Rätt</span
+                ><span class="question-text"
+                  >Vilket ämne har den kemiska beteckningen Au?</span
+                ></span
+              >
+              <svg
+                class="question-chevron"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+              >
+                <path d="m5 9 7 7 7-7" />
+              </svg>
+            </summary>
+            <div class="answer-panel">
+              <div class="answer-grid">
+                <div class="answer-box">
+                  <p class="answer-label">Ditt svar</p>
+                  <p>Guld</p>
+                </div>
+                <div class="answer-box">
+                  <p class="answer-label">Rätt svar</p>
+                  <p>Guld</p>
+                </div>
+              </div>
+            </div>
+          </details>
+
+          <details class="result-item is-incorrect">
+            <summary>
+              <span class="status-icon" aria-hidden="true">✕</span>
+              <span class="question-copy"
+                ><span class="question-meta">Fråga 8 · Fel</span
+                ><span class="question-text"
+                  >Hur lång är en engelsk tum?</span
+                ></span
+              >
+              <svg
+                class="question-chevron"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+              >
+                <path d="m5 9 7 7 7-7" />
+              </svg>
+            </summary>
+            <div class="answer-panel">
+              <div class="answer-grid">
+                <div class="answer-box">
+                  <p class="answer-label">Ditt svar</p>
+                  <p>2,5 cm</p>
+                </div>
+                <div class="answer-box">
+                  <p class="answer-label">Rätt svar</p>
+                  <p>2,54 cm</p>
+                </div>
+              </div>
+            </div>
+          </details>
+
+          <details class="result-item is-incorrect">
+            <summary>
+              <span class="status-icon" aria-hidden="true">✕</span>
+              <span class="question-copy"
+                ><span class="question-meta">Fråga 9 · Fel</span
+                ><span class="question-text"
+                  >Vilken fred avslutade finska kriget år 1809?</span
+                ></span
+              >
+              <svg
+                class="question-chevron"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+              >
+                <path d="m5 9 7 7 7-7" />
+              </svg>
+            </summary>
+            <div class="answer-panel">
+              <div class="answer-grid">
+                <div class="answer-box">
+                  <p class="answer-label">Ditt svar</p>
+                  <p>Freden i Roskilde</p>
+                </div>
+                <div class="answer-box">
+                  <p class="answer-label">Rätt svar</p>
+                  <p>Freden i Fredrikshamn</p>
+                </div>
+              </div>
+            </div>
+          </details>
+
+          <details class="result-item is-correct">
+            <summary>
+              <span class="status-icon" aria-hidden="true">✓</span>
+              <span class="question-copy"
+                ><span class="question-meta">Fråga 10 · Rätt</span
+                ><span class="question-text"
+                  >Vilken stad är Australiens huvudstad?</span
+                ></span
+              >
+              <svg
+                class="question-chevron"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+              >
+                <path d="m5 9 7 7 7-7" />
+              </svg>
+            </summary>
+            <div class="answer-panel">
+              <div class="answer-grid">
+                <div class="answer-box">
+                  <p class="answer-label">Ditt svar</p>
+                  <p>Canberra</p>
+                </div>
+                <div class="answer-box">
+                  <p class="answer-label">Rätt svar</p>
+                  <p>Canberra</p>
+                </div>
+              </div>
+            </div>
+          </details>
+        </section>
+
+        <nav class="result-actions" aria-label="Efter quizet">
+          <a class="result-primary-button" href="./questions.html"
+            >Spela igen</a
+          >
+          <a class="result-secondary-button" href="./index.html">Byt tema</a>
+        </nav>
+      </section>
+    </main>
+
+    <script>
+      // Två vyer i samma result.html. Vi använder #results för att växla.
+      const finishedPage = document.querySelector(".finished-page");
+      const resultsPage = document.querySelector(".results-page");
+
+      function updateResultView() {
+        const showResults = window.location.hash === "#results";
+        finishedPage.hidden = showResults;
+        resultsPage.hidden = !showResults;
+        document.title = showResults
+          ? "Ditt resultat | Quiz Tajm"
+          : "Quiz avslutat | Quiz Tajm";
+        window.scrollTo(0, 0);
+      }
+
+      window.addEventListener("hashchange", updateResultView);
+      updateResultView();
+    </script>
+  </body>
+</html>
