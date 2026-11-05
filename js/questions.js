@@ -1,8 +1,18 @@
 /*
-    Fil: questions.js
-    Beskrivning: Logik som inhämtar slumpmässig fråga från offentligt API med svarshantering
-    Författare: Lumi Hyväri -- @lumiwyou <lumi.hyvari@gmail.com>
-*/
+ * Den här filen hanterar quizets frågor och svar.
+ *
+ * Hämtar frågor från Open Trivia DB baserat på den kategori
+ * som spelaren valt på startsidan.
+ *
+ * Frågorna och svarsalternativen visas på sidan, där spelaren
+ * kan välja ett svar och få veta om det är rätt eller fel.
+ *
+ * Koden håller även koll på vilken fråga spelaren är på,
+ * uppdaterar framstegen och sparar resultaten.
+ *
+ * När alla frågor är besvarade eller tiden tar slut
+ * räknas poängen ihop och spelaren skickas till resultatsidan.
+ */
 
 const API_ENDPOINT = "https://opentdb.com/api.php";
 
@@ -31,9 +41,6 @@ let currentQuestionIndex = 0;
 let selectedAnswerIndex = null;
 let correctAnswerIndex = null;
 
-// Source - https://stackoverflow.com/a/2450976
-// Posted by ChristopheD, modified by community. See post 'Timeline' for change history
-// Retrieved 2026-10-22, License - CC BY-SA 4.0
 function shuffle(array) {
   let currentIndex = array.length;
 
@@ -122,7 +129,10 @@ function askQuestion(question) {
     answerTitleElements[index].textContent = decodeHTML(answer);
   });
 
-  if (currentQuestionIndex === 0 && typeof window.startQuizTimer === "function") {
+  if (
+    currentQuestionIndex === 0 &&
+    typeof window.startQuizTimer === "function"
+  ) {
     window.startQuizTimer();
   }
   if (typeof window.updateProgress === "function") {
@@ -216,5 +226,35 @@ async function init() {
   submitBtn.addEventListener("click", submitAnswer);
   askQuestion(questions[currentQuestionIndex]);
 }
+
+// Avslutar quizet och skickar spelaren till resultatsidan
+window.finishQuiz = function (reason) {
+  // Stoppar timern
+  window.stopQuizTimer?.();
+
+  // Hämtar sparade svar
+  const answers = JSON.parse(localStorage.getItem("results") ?? "[]");
+
+  // Räknar antal rätt
+  const score = answers.filter((answer) => answer.isCorrect).length;
+
+  // Hämtar tiden
+  const timeUsed = window.getTimeUsed();
+
+  // Sparar resultatet inför sidbytet
+  sessionStorage.setItem(
+    "quiztajm_current_result",
+    JSON.stringify({
+      score,
+      total: questions.length,
+      time: window.formatQuizTime(timeUsed),
+      answers,
+      reason,
+    })
+  );
+
+  // Går vidare till Bra jobbat-vyn
+  window.location.href = "./result.html";
+};
 
 init();

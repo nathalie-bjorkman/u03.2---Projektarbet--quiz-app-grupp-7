@@ -1,26 +1,21 @@
+/*
+ * Den här filen hanterar quizets resultat och resultathistorik.
+ *
+ * Tar emot och sparar spelarens resultat i localStorage,
+ * så att tidigare spelomgångar finns kvar i webbläsaren.
+ *
+ * Visar antal rätt och fel samt vilka svar spelaren valde.
+ * För varje fråga visas även det rätta svaret och en
+ * eventuell förklaring.
+ *
+ * Koden hanterar också resultathistoriken, där spelaren
+ * kan se tidigare resultat och välja vilket som ska visas.
+ *
+ * Slutligen hanteras knapparna för att spela igen
+ * eller gå tillbaka till startsidan.
+ */
 
 "use strict";
-
-/*
-  ENDAST RESULTATTAVLA.
-  Lagringsnyckel: quiztajm_results_v1
-
-  När ditt befintliga quiz avslutas kan det spara ett resultat med:
-  window.saveQuizResult({
-    title: "Mitt quiz",
-    score: 8,
-    total: 10,
-    answers: [
-      {
-        question: "Exempelfråga?",
-        options: ["Svar A", "Svar B", "Svar C", "Svar D"],
-        selected: 1,
-        correct: 1,
-        explanation: "Förklaring."
-      }
-    ]
-  });
-*/
 
 const STORAGE_KEY = "quiztajm_results_v1";
 
@@ -53,22 +48,28 @@ function writeResults(results) {
 }
 
 function makeId() {
-  return globalThis.crypto?.randomUUID?.() ||
-    `${Date.now()}-${Math.random().toString(36).slice(2)}`;
+  return (
+    globalThis.crypto?.randomUUID?.() ||
+    `${Date.now()}-${Math.random().toString(36).slice(2)}`
+  );
 }
 
 function escapeHTML(value) {
-  return String(value ?? "").replace(/[&<>"']/g, char => ({
-    "&": "&amp;",
-    "<": "&lt;",
-    ">": "&gt;",
-    '"': "&quot;",
-    "'": "&#39;"
-  })[char]);
+  return String(value ?? "").replace(
+    /[&<>"']/g,
+    (char) =>
+      ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#39;",
+      }[char])
+  );
 }
 
 function percentage(score, total) {
-  return total > 0 ? Math.round(score / total * 100) : 0;
+  return total > 0 ? Math.round((score / total) * 100) : 0;
 }
 
 function formatDate(value) {
@@ -83,13 +84,13 @@ function formatDate(value) {
     month: "short",
     year: "numeric",
     hour: "2-digit",
-    minute: "2-digit"
+    minute: "2-digit",
   }).format(date);
 }
 
 function sortedResults() {
-  return readResults().sort((a, b) =>
-    new Date(b.date).getTime() - new Date(a.date).getTime()
+  return readResults().sort(
+    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
   );
 }
 
@@ -103,10 +104,7 @@ window.saveQuizResult = function (data) {
   }
 
   const total = Math.max(0, Number(data.total) || 0);
-  const score = Math.max(
-    0,
-    Math.min(total, Number(data.score) || 0)
-  );
+  const score = Math.max(0, Math.min(total, Number(data.score) || 0));
 
   const result = {
     id: makeId(),
@@ -115,20 +113,16 @@ window.saveQuizResult = function (data) {
     score,
     total,
     answers: Array.isArray(data.answers)
-      ? data.answers.map(answer => ({
+      ? data.answers.map((answer) => ({
           question: String(answer.question || ""),
           options: Array.isArray(answer.options)
             ? answer.options.map(String)
             : [],
-          selected: Number.isInteger(answer.selected)
-            ? answer.selected
-            : null,
-          correct: Number.isInteger(answer.correct)
-            ? answer.correct
-            : null,
-          explanation: String(answer.explanation || "")
+          selected: Number.isInteger(answer.selected) ? answer.selected : null,
+          correct: Number.isInteger(answer.correct) ? answer.correct : null,
+          explanation: String(answer.explanation || ""),
         }))
-      : []
+      : [],
   };
 
   const results = readResults();
@@ -158,16 +152,18 @@ function renderLatest(result) {
   const percent = percentage(score, total);
   const answers = Array.isArray(result.answers) ? result.answers : [];
 
-  const correct = answers.filter(answer =>
-    answer.selected !== null &&
-    answer.selected !== undefined &&
-    answer.selected === answer.correct
+  const correct = answers.filter(
+    (answer) =>
+      answer.selected !== null &&
+      answer.selected !== undefined &&
+      answer.selected === answer.correct
   ).length;
 
-  const wrong = answers.filter(answer =>
-    answer.selected !== null &&
-    answer.selected !== undefined &&
-    answer.selected !== answer.correct
+  const wrong = answers.filter(
+    (answer) =>
+      answer.selected !== null &&
+      answer.selected !== undefined &&
+      answer.selected !== answer.correct
   ).length;
 
   latestElement.innerHTML = `
@@ -211,27 +207,26 @@ function renderReview(result) {
     return;
   }
 
-  reviewElement.innerHTML = answers.map((answer, index) => {
-    const selected = answer.selected;
-    const correct = answer.correct;
+  reviewElement.innerHTML = answers
+    .map((answer, index) => {
+      const selected = answer.selected;
+      const correct = answer.correct;
 
-    const skipped = selected === null || selected === undefined;
-    const isCorrect = !skipped && selected === correct;
+      const skipped = selected === null || selected === undefined;
+      const isCorrect = !skipped && selected === correct;
 
-    const options = Array.isArray(answer.options)
-      ? answer.options
-      : [];
+      const options = Array.isArray(answer.options) ? answer.options : [];
 
-    const selectedText = skipped
-      ? "Överhoppad"
-      : options[selected] ?? "Okänt svar";
+      const selectedText = skipped
+        ? "Överhoppad"
+        : options[selected] ?? "Okänt svar";
 
-    const correctText = correct === null ||
-      correct === undefined
-      ? "Ej angivet"
-      : options[correct] ?? "Okänt svar";
+      const correctText =
+        correct === null || correct === undefined
+          ? "Ej angivet"
+          : options[correct] ?? "Okänt svar";
 
-    return `
+      return `
       <article class="card review-item ${isCorrect ? "" : "wrong"}">
         <div class="review-meta">
           <span class="review-status">
@@ -266,14 +261,13 @@ function renderReview(result) {
         }
       </article>
     `;
-  }).join("");
+    })
+    .join("");
 }
 
 function renderHistory() {
   const results = sortedResults();
-  const visibleResults = showAllHistory
-    ? results
-    : results.slice(0, 3);
+  const visibleResults = showAllHistory ? results : results.slice(0, 3);
 
   toggleHistoryButton.hidden = results.length <= 3;
   toggleHistoryButton.textContent = showAllHistory
@@ -289,7 +283,9 @@ function renderHistory() {
     return;
   }
 
-  historyElement.innerHTML = visibleResults.map(result => `
+  historyElement.innerHTML = visibleResults
+    .map(
+      (result) => `
     <button
       type="button"
       class="history-item"
@@ -301,23 +297,30 @@ function renderHistory() {
       </span>
 
       <span class="history-info">
-        <span class="history-name">${escapeHTML(result.title || "Quiz Tajm")}</span>
+        <span class="history-name">${escapeHTML(
+          result.title || "Quiz Tajm"
+        )}</span>
         <span class="history-date">
           ${escapeHTML(formatDate(result.date))}
-          · ${percentage(Number(result.score) || 0, Number(result.total) || 0)}% rätt
+          · ${percentage(
+            Number(result.score) || 0,
+            Number(result.total) || 0
+          )}% rätt
         </span>
       </span>
 
       <span class="history-arrow" aria-hidden="true">›</span>
     </button>
-  `).join("");
+  `
+    )
+    .join("");
 }
 
 function renderBoard() {
   const results = sortedResults();
 
   let current = selectedResultId
-    ? results.find(result => result.id === selectedResultId)
+    ? results.find((result) => result.id === selectedResultId)
     : results[0];
 
   if (!current && results.length) {
@@ -337,7 +340,7 @@ function renderBoard() {
 }
 
 /* Visa ett tidigare försök i resultattavlan. */
-historyElement.addEventListener("click", event => {
+historyElement.addEventListener("click", (event) => {
   const button = event.target.closest("[data-result-id]");
   if (!button) return;
 
@@ -346,7 +349,7 @@ historyElement.addEventListener("click", event => {
 
   document.querySelector(".latest-card").scrollIntoView({
     behavior: "smooth",
-    block: "start"
+    block: "start",
   });
 });
 

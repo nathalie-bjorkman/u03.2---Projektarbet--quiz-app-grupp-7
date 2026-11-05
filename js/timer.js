@@ -1,3 +1,22 @@
+/*
+ * Den här filen hanterar quizets timer och framsteg.
+ *
+ * Startar en nedräkning på fyra minuter och visar hur mycket
+ * tid spelaren har kvar för att besvara frågorna.
+ *
+ * Uppdaterar även quizets progressbar och visar vilken fråga
+ * spelaren är på samt hur många frågor som återstår.
+ *
+ * När det är en minut kvar ändras timerns utseende för att
+ * uppmärksamma spelaren på att tiden snart är slut.
+ *
+ * När tiden tar slut avslutas quizet och resultatet hanteras.
+ * Koden innehåller även en resultatmodal som kan visa
+ * spelarens poäng och hur lång tid quizet tog.
+ *
+ * Spelaren kan också avbryta quizet och återgå till startsidan.
+ */
+
 // Hämta elementen för progress
 const questionCount = document.getElementById("question-count");
 const questionsLeft = document.getElementById("questions-left");
@@ -56,7 +75,7 @@ window.updateProgress = function (currentQuestion, totalQuestions) {
   // Uppdaterar informationen för visuellt hjälpmedel
   progressBar.setAttribute("aria-valuemax", totalQuestions);
   progressBar.setAttribute("aria-valuenow", currentQuestion);
-}
+};
 
 // Testar med fråga 5 av 10, så att progressbaren ändras VIKTIGT - TA BORT DETTA NÄR ALL JAVASCRIPT ÄR KLAR!!
 // updateProgress(2, 10);
@@ -87,7 +106,7 @@ window.startQuizTimer = function () {
       // Meddela quistions.js att tiden är slut
       window.finishQuiz("time");
 
-       timeUpModal.hidden = false;
+      timeUpModal.hidden = false;
       timeUpButton.focus();
     }
   }, 1000);
@@ -113,7 +132,9 @@ window.formatQuizTime = function (seconds) {
   const minutes = Math.floor(seconds / 60);
   const remainingSeconds = seconds % 60;
 
-  return `${String(minutes).padStart(2, "0")}:${String(remainingSeconds).padStart(2, "0")}`;
+  return `${String(minutes).padStart(2, "0")}:${String(
+    remainingSeconds
+  ).padStart(2, "0")}`;
 };
 
 // Visa den gemensamma resultatmodalen
@@ -123,25 +144,27 @@ window.showQuizEndModal = function (reason, score, total, timeUsed) {
   correctAnswers.textContent = score;
   totalQuestionsElement.textContent = total;
 
-  howFast.textContent = `Klart på ${window.formatQuizTime(timeUsed)}. Se svaren och vad du kan ta med dig till nästa omgång.`;
+  howFast.textContent = `Klart på ${window.formatQuizTime(
+    timeUsed
+  )}. Se svaren och vad du kan ta med dig till nästa omgång.`;
 
   timeUpModal.hidden = false;
   timeUpButton.focus();
 };
 
 // Avbryt quizet
-cancelButton.addEventListener("click", function() {
-    const confirmCancel = confirm("Är du säker på att du vill avbryta quizet?");
+cancelButton.addEventListener("click", function () {
+  const confirmCancel = confirm("Är du säker på att du vill avbryta quizet?");
 
-    if (confirmCancel) {
-        window.stopQuizTimer();
-        window.location.href = "./index.html";
-    }
+  if (confirmCancel) {
+    window.stopQuizTimer();
+    window.location.href = "./index.html";
+  }
 });
 
 // Knappen i resultatmodalen
-timeUpButton.addEventListener("click", function() {
-    window.location.href = "../html/index.html";
+timeUpButton.addEventListener("click", function () {
+  window.location.href = "../html/index.html";
 });
 
 // Visa starttiden utan att starta nedräkningen
