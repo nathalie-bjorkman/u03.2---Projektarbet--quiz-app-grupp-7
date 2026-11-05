@@ -163,14 +163,28 @@ function submitAnswer(event) {
     return;
   }
 
-  // alert(isCorrect ? "Rätt svar!" : "Fel svar!");
-  // const results = JSON.parse(localStorage.getItem("results") ?? "[]");
-  // results.push({
-  //   question: decodeHTML(questions[currentQuestionIndex].question),
-  //   isCorrect,
-  // });
+  // Hämtar tidigare svar eller skapar en tom lista
+  const results = JSON.parse(localStorage.getItem("results") ?? "[]");
+
+  // Lägger till den aktuella frågan och om svaret var rätt
+  results.push({
+    question: decodeHTML(questions[currentQuestionIndex].question),
+    isCorrect,
+  });
+
+  // Sparar svaren i localStorage
   localStorage.setItem("results", JSON.stringify(results));
+
   currentQuestionIndex++;
+
+  if (currentQuestionIndex === questions.length) {
+    if (typeof window.finishQuiz === "function") {
+      window.finishQuiz("completed");
+    }
+    return;
+  }
+
+  askQuestion(questions[currentQuestionIndex]);
 
   if (currentQuestionIndex === questions.length) {
     if (typeof window.finishQuiz === "function") {

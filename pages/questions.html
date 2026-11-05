@@ -1,167 +1,187 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quiz tajm - Frågor</title>
-    <!-- Nathalies css för timer + base.css -->
-    <link rel="stylesheet" href="../css/base.css">
-    <link rel="stylesheet" href="../css/timer.css">
+<html lang="sv">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quiz Tajm | Frågor</title>
 
-    <link rel="stylesheet" href="../css/questions.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Fredoka:wght@300..700&display=swap" rel="stylesheet">
+    <!-- CSS -->
+    <link rel="stylesheet" href="../css/base.css" />
+    <link rel="stylesheet" href="../css/timer.css" />
+    <link rel="stylesheet" href="../css/questions.css" />
 
-<!-- Nathalies JavaScript timer -->
-<script src="../js/timer.js" defer></script>
-<!-- Lunis JavaScript -->
-<script src="../js/questions.js" defer></script>
-</head>
-<body>
+    <!-- Typsnitt -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fredoka:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
 
-    <!-- Nathalies del här  -->
-    
-    <!-- Dekorativ cirkel -->
+    <!-- JavaScript -->
+    <script src="../js/timer.js" defer></script>
+    <script src="../js/questions.js" defer></script>
+  </head>
+
+  <body class="quiz-page">
+    <!-- Dekorationer -->
     <div class="decoration-circle" aria-hidden="true"></div>
     <div class="decoration-bar" aria-hidden="true"></div>
-    
+
     <!-- Header -->
     <header id="timer-progress">
-    
-        <div class="timer-header">
-            <!-- logo -->
-            <img src="../img/timer/logo.svg" alt="Quiz Tajm" class="quiz-logo">
-    
-            <!-- Avbryt knappen -->
-    
-            <div class="cancel-timer-container">
-    
-                <div class="quiz-timer" role="timer">
-                    <span id="timer-icon" aria-hidden="true"><img src="../img/timer/timer.svg" alt=""></span>
-                    <span class="time-left">
-                    </span>
-                </div>
-                <button id="cancel-button">
-                    Avbryt
-                </button>
-            </div>
-    
-            <!-- Timer -->
-    
-        </div>
-    
-        <div id="progress">
-    
-            <!-- Framsteg -->
-    
-            <div class="quiz-progress">
-                <div class="progress-info">
-                    <span id="question-count"></span>
-                    <span id="questions-left"></span>
-                </div>
-    
-                <div class="progress-bar" role="progressbar" aria-label="Quizets framsteg" aria-valuemin="0"
-                    aria-valuemax="10" aria-valuenow="1">
-                    <div class="progress-fill"></div>
-                </div>
-            </div>
-        </div>
-    </header>
-    
-    <div id="time-up-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="time-up-title" hidden>
-    
-        <div class="modal-content">
-            <div class="timer-container">
-                <svg class="time-out-logo" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
-                    fill="none">
-                    <path
-                        d="M17.0755 9.99529C17.0755 13.9055 13.9057 17.0753 9.99553 17.0753C6.08535 17.0753 2.91553 13.9055 2.91553 9.99529C2.91553 6.08511 6.08535 2.91528 9.99553 2.91528C13.9057 2.91528 17.0755 6.08511 17.0755 9.99529Z"
-                        stroke-width="1.66588" stroke-linecap="round" stroke-linejoin="round" />
-                    <path d="M9.99512 6.24707V10.4118L12.6605 11.9944" stroke-width="1.66588" stroke-linecap="round"
-                        stroke-linejoin="round" />
-                </svg>
-            </div>
-    
-            <p id="quiz-close-text">QUIZET ÄR AVSLUTAT</p>
-    
-            <h2 id="time-up-title">Tiden är slut!</h2>
-    
-            <h3 id="how-many-correct-answers">
-                <span class="correct-answer">0</span> av
-                <span id="total-questions">10</span> rätt
-            </h3>
-    
-            <p id="how-fast">Klart på 4:00. Se svaren och vad du kan ta med dig till nästa omgång</p>
-            <button id="time-up-button" type="button">
-                Se resultat <img src="../img/arrow-right-2.svg" alt="">
-            </button>
-        </div>
-    </div>
+      <div class="timer-header">
+        <!-- Logotyp -->
+        <a href="./index.html" aria-label="Quiz Tajm startsida">
+          <img src="../img/timer/logo.svg" alt="Quiz Tajm" class="quiz-logo" />
+        </a>
 
-    <!-- GÖRS AV NATHALIE
-    <header class="page-header">
-        <img src="" alt="" class="logo-image">
-        <div class="timer">
-            <img src="" alt="" class="clock-image">
-            <p class="time-value" id="time-value">00:00</p>
+        <!-- Timer och avbryt -->
+        <div class="cancel-timer-container">
+          <div class="quiz-timer" role="timer">
+            <span id="timer-icon" aria-hidden="true">
+              <img src="../img/timer/timer.svg" alt="" />
+            </span>
+            <span class="time-left">04:00</span>
+          </div>
+
+          <button type="button" id="cancel-button">Avbryt</button>
         </div>
+      </div>
+
+      <!-- Framsteg -->
+      <div id="progress">
+        <div class="quiz-progress">
+          <div class="progress-info">
+            <span id="question-count">Fråga 1 av 10</span>
+            <span id="questions-left">9 kvar</span>
+          </div>
+
+          <div
+            class="progress-bar"
+            role="progressbar"
+            aria-label="Quizets framsteg"
+            aria-valuemin="0"
+            aria-valuemax="10"
+            aria-valuenow="1"
+          >
+            <div class="progress-fill"></div>
+          </div>
+        </div>
+      </div>
     </header>
-    <div class="cancel-container">
-        <button class="cancel-btn">
-            Avbryt
-        </button>
-    </div>
-    <div class="questions-progress">
-        <div class="labels">
-            <p>Fråga <span id="progress-n">5</span> av <span id="progress-of"></span></p>
+
+    <!-- Quiz -->
+    <main class="quiz-main">
+      <form id="quiz-form">
+        <!-- Frågan fylls från API:et -->
+        <section class="question-container" aria-labelledby="question-titel">
+          <p class="question-category" id="question-category"></p>
+
+          <h1 class="question-titel" id="question-titel">Laddar frågor...</h1>
+        </section>
+
+        <!-- Svarsalternativen fylls från API:et -->
+        <div
+          class="answers-container"
+          role="group"
+          aria-label="Svarsalternativ"
+        >
+          <!-- Svar 1 -->
+          <button class="answer" id="answer-1" type="button">
+            <span class="order-number-wrapper">
+              <span class="order-number">1</span>
+            </span>
+
+            <span class="titel" id="answer-titel-1"></span>
+
+            <span class="check-wrapper" aria-hidden="true">
+              <span class="check" id="check-1"></span>
+            </span>
+          </button>
+
+          <!-- Svar 2 -->
+          <button class="answer" id="answer-2" type="button">
+            <span class="order-number-wrapper">
+              <span class="order-number">X</span>
+            </span>
+
+            <span class="titel" id="answer-titel-2"></span>
+
+            <span class="check-wrapper" aria-hidden="true">
+              <span class="check" id="check-2"></span>
+            </span>
+          </button>
+
+          <!-- Svar 3 -->
+          <button class="answer" id="answer-3" type="button">
+            <span class="order-number-wrapper">
+              <span class="order-number">2</span>
+            </span>
+
+            <span class="titel" id="answer-titel-3"></span>
+
+            <span class="check-wrapper" aria-hidden="true">
+              <span class="check" id="check-3"></span>
+            </span>
+          </button>
         </div>
-        <div class="bar"></div>
-    </div>
-    -->
-    <main>
-        <form action="">
-            <div class="question-container">
-                <h1 class="question-category" id="question-category">Geography</h1>
-                <h2 class="question-titel" id="question-titel">Vilket land tillhör exklaven Kaliningrad?</h2>
-            </div>
-            <div class="answers-container">
-                <div class="answer" id="answer-1">
-                    <div class="order-number-wrapper">
-                        <h3 class="order-number">1</h3>
-                    </div>
-                    <h4 class="titel" id="answer-titel-1">Polen</h4>
-                    <div class="check-wrapper">
-                        <div class="check" id="check-1"></div>
-                    </div>
-                </div>
-                <div class="answer" id="answer-2">
-                    <div class="order-number-wrapper">
-                        <h3 class="order-number">X</h3>
-                    </div>
-                    <h4 class="titel" id="answer-titel-2">Litauen</h4>
-                    <div class="check-wrapper">
-                        <div class="check" id="check-2"></div>
-                    </div>
-                </div>
-                <div class="answer" id="answer-3">
-                    <div class="order-number-wrapper">
-                        <h3 class="order-number">3</h3>
-                    </div>
-                    <h4 class="titel" id="answer-titel-3">Ryssland</h4>
-                    <div class="check-wrapper">
-                        <div class="check" id="check-3"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="submit-container">
-                <!--<button class="submit-btn" type="submit" id="submit"><p>Bekräfta svar →</p></button>-->
-                <button class="submit-btn" id="submit"><p>Bekräfta svar →</p></button> <!-- Dummy btn -->
-                <p class="notice">
-                    Du kan ändra ditt val innan du bekräftar
-                </p>
-            </div>
-        </form>
+
+        <!-- Bekräfta svar -->
+        <div class="submit-container">
+          <button class="submit-btn" id="submit" type="submit">
+            <span>Bekräfta svar</span>
+            <span aria-hidden="true">→</span>
+          </button>
+
+          <p class="notice">Du kan ändra ditt val innan du bekräftar.</p>
+        </div>
+      </form>
     </main>
-</body>
+
+    <!-- Modal för avslutat quiz -->
+    <div
+      id="time-up-modal"
+      class="modal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="time-up-title"
+      hidden
+    >
+      <div class="modal-content">
+        <div class="timer-container" aria-hidden="true">
+          <svg
+            class="time-out-logo"
+            width="30"
+            height="30"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <circle cx="12" cy="12" r="9"></circle>
+            <path d="M12 7v5l3 2"></path>
+          </svg>
+        </div>
+
+        <p id="quiz-close-text">QUIZET ÄR AVSLUTAT</p>
+
+        <h2 id="time-up-title">Tiden är slut!</h2>
+
+        <h3 id="how-many-correct-answers">
+          <span class="correct-answer">0</span>
+          av
+          <span id="total-questions">10</span>
+          rätt
+        </h3>
+
+        <p id="how-fast"></p>
+
+        <button id="time-up-button" type="button">
+          Se resultat
+          <img src="../img/arrow-right-2.svg" alt="" />
+        </button>
+      </div>
+    </div>
+  </body>
 </html>
