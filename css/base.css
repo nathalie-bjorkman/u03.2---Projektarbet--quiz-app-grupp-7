@@ -23,6 +23,7 @@
     linear-gradient(160deg, #f5efff 0%, #fff0f5 100%);
 
   --color-surface: #ffffff;
+  --color-bg-active: #ede4ff;
   --color-text: #241432;
   --color-text-muted: #655a70;
   --color-heading: #5620a8;

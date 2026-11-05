@@ -1,3 +1,20 @@
+/*
+ * Den här filen hanterar startsidans kategorival och start av quizet.
+ *
+ * Spelaren kan välja mellan olika kategorier genom att klicka
+ * på knapparna. Koden markerar den valda kategorin och
+ * uppdaterar informationsrutan med rätt kategorinamn.
+ *
+ * Knapparnas tillgänglighet hanteras också genom aria-pressed,
+ * som visar vilken kategori som är vald.
+ *
+ * När spelaren klickar på "Starta quiz" sparas den valda
+ * kategorin i sessionStorage, så att frågesidan kan hämta
+ * rätt kategori från API:et.
+ *
+ * Slutligen skickas spelaren vidare till questions.html.
+ */
+
 // Hämtar alla HTML-element med klassen .toggle-button.
 // querySelectorAll skapar en NodeList (samling av DOM-noder).
 // Varje knapp får ett index (0, 1, 2 osv).
